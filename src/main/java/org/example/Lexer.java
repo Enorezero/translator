@@ -3,6 +3,9 @@ package org.example;
 import org.example.model.Token;
 import org.example.model.TokenType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Lexer {
 
     private final String code;
@@ -10,17 +13,14 @@ public class Lexer {
     private char currentChar;
 
     public Lexer(String code) {
-        this.code = code;
+        this.code = code.replaceAll("\\s{2,}", " ").trim();
         this.pos = 0;
         this.currentChar = code.charAt(0);
     }
 
     private void advance() {
         pos++;
-        if (pos >= code.length()) {
-            currentChar = code.charAt(0);
-        }
-        else {
+        if (pos < code.length()) {
             currentChar = code.charAt(pos);
         }
     }
@@ -33,49 +33,123 @@ public class Lexer {
 
     private Token number() {
         StringBuilder result = new StringBuilder();
-        while (Character.isDigit(currentChar)) {
+        boolean isDot = false;
+        while (Character.isDigit(currentChar) || currentChar == '.') {
+            if (currentChar == '.') {
+                if (isDot) {
+                    throw new NumberFormatException();
+                }
+                isDot = true;
+            }
             result.append(currentChar);
             advance();
         }
         return new Token(TokenType.NUMBER, result.toString());
     }
 
-    Token getNextToken() {
-        while (currentChar != '\0') {
+    private Token getCompoundToken() {
+        var previousChar = currentChar;
+        advance();
+        var compound = String.valueOf(previousChar) + currentChar;
+        var type = TokenType.fromValue(compound);
+        if (type != null) {
+            advance();
+            return new Token(type, compound);
+        }
+        return new Token(TokenType.EQUALS, "=");
+    }
+
+    private Token oneCharToken() {
+        var tokenType = TokenType.fromValue(String.valueOf(currentChar));
+        if (tokenType != null) {
+            return new Token(tokenType, String.valueOf(currentChar));
+        }
+        return null;
+    }
+
+    private Token stringToken() {
+        if (currentChar == '\"') {
+            advance();
+            StringBuilder tmpToken = new StringBuilder();
+            while (currentChar != '\"') {
+                tmpToken.append(currentChar);
+                advance();
+            }
+            return new Token(TokenType.STRING, tmpToken.toString());
+        }
+        return null;
+    }
+
+
+    public List<Token> tokenize() {
+        List<Token> tokens = new ArrayList<>();
+        boolean isDataType = true;
+        while (pos != code.length()) {
             if (Character.isWhitespace(currentChar)) {
                 skipWhitespace();
                 continue;
             }
-            if (Character.isDigit(currentChar)) return number();
-            if (currentChar == '+') {
-                advance();
-                return new Token(TokenType.PLUS, "+");
+            if (Character.isDigit(currentChar)) {
+                var numberToken = number();
+                tokens.add(numberToken);
+                continue;
             }
-            if (currentChar == '-') {
-                advance();
-                return new Token(TokenType.MINUS, "-");
+            if (currentChar == '=') {
+                var compoundToken = getCompoundToken();
+                tokens.add(compoundToken);
+                continue;
             }
-            if (currentChar == '*') {
+
+            var oneCharToken = oneCharToken();
+            if (oneCharToken != null) {
+                tokens.add(oneCharToken);
                 advance();
-                return new Token(TokenType.TIMES, "*");
+                continue;
             }
-            if (currentChar == '/') {
+
+            var stringToken = stringToken();
+            if (stringToken != null) {
+                tokens.add(stringToken);
                 advance();
-                return new Token(TokenType.DIVIDE, "/");
+                continue;
             }
-            if (currentChar == '(') {
+
+            //keywords and identifiers
+            StringBuilder tmpToken = new StringBuilder();
+            while (currentChar != ' ' && currentChar != '.' && currentChar != '(' && currentChar != ')') {
+                tmpToken.append(currentChar);
                 advance();
-                return new Token(TokenType.LPAREN, "(");
             }
-            if (currentChar == ')') {
-                advance();
-                return new Token(TokenType.RPAREN, ")");
+
+            //check keywords
+            var keyword = TokenType.fromValue(tmpToken.toString());
+            if (keyword != null) {
+                if (keyword == TokenType.CLASS || keyword == TokenType.INTERFACE || keyword == TokenType.VOID) {
+                    isDataType = false;
+                }
+                tokens.add(new Token(keyword, tmpToken.toString()));
+            } else if (isDataType && currentChar == ' ') {//data type
+                isDataType = false;
+                tokens.add(new Token(TokenType.DATA_TYPE, tmpToken.toString()));
+            } else { //identifier
+                isDataType = true;
+                tokens.add(new Token(TokenType.IDENTIFIER, tmpToken.toString()));
             }
-            throw new RuntimeException("Unknown character: " + currentChar);
+            tmpToken.delete(0, tmpToken.length());
         }
-        return new Token(TokenType.EOF, "");
+        return tokens;
     }
 
-
-
 }
+/*
+  String code = "public class HelloWorld { " +
+                      "    public static void main(String[] args) { " +
+                      "        int a = 10; " +
+                      "        double b = 3.14; " +
+                      "        String s = \"Hello, World!\"; " +
+                      "        System.out.println(s); " +
+                      "    } " +
+                      "} ";
+ */
+
+//блять чем я занимаюсь вообще ну и хуйню высрал
