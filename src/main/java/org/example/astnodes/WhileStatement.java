@@ -5,9 +5,9 @@ import org.example.ASTNode;
 import java.util.List;
 
 // Represents a while loop
-class WhileStatement extends ASTNode {
-    ASTNode condition;
-    List<ASTNode> body;
+public class WhileStatement extends ASTNode {
+    public ASTNode condition;
+    public List<ASTNode> body;
 
     WhileStatement(ASTNode condition, List<ASTNode> body) {
         this.condition = condition;
