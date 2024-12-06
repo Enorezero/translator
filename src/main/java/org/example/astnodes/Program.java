@@ -4,8 +4,8 @@ import org.example.ASTNode;
 
 import java.util.List;
 
-class Program extends ASTNode {
-    List<ClassDef> classes;
+public class Program extends ASTNode {
+    public List<ClassDef> classes;
 
     Program(List<ClassDef> classes) {
         this.classes = classes;

@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 // Represents a try-catch statement
-class TryCatchStatement extends ASTNode {
-    List<ASTNode> tryBody;
-    Map<String, List<ASTNode>> catchBlocks;
-    List<ASTNode> finallyBody;
+public class TryCatchStatement extends ASTNode {
+    public List<ASTNode> tryBody;
+    public Map<String, List<ASTNode>> catchBlocks;
+    public List<ASTNode> finallyBody;
 
     TryCatchStatement(List<ASTNode> tryBody, Map<String, List<ASTNode>> catchBlocks, List<ASTNode> finallyBody) {
         this.tryBody = tryBody;
