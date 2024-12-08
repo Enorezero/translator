@@ -3,9 +3,9 @@ package org.example.astnodes;
 import org.example.ASTNode;
 
 // Represents a unary operation (e.g., negation)
-class UnaryOp extends ASTNode {
-    String operator;
-    ASTNode operand;
+public class UnaryOp extends ASTNode {
+    public String operator;
+    public ASTNode operand;
 
     UnaryOp(String operator, ASTNode operand) {
         this.operator = operator;

@@ -3,10 +3,10 @@ package org.example.astnodes;
 import org.example.ASTNode;
 
 // Represents an attribute access
-class Attribute extends ASTNode {
-    String type;
-    String name;
-    ASTNode initializer;
+public class Attribute extends ASTNode {
+    public String type;
+    public String name;
+    public ASTNode initializer;
 
     Attribute(String type, String name, ASTNode initializer) {
         this.type = type;

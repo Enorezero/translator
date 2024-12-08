@@ -3,10 +3,10 @@ package org.example.astnodes;
 import org.example.ASTNode;
 
 // Represents a variable declaration or assignment
-class VariableDeclaration extends ASTNode {
-    String type;
-    String name;
-    ASTNode initializer;
+public class VariableDeclaration extends ASTNode {
+    public String type;
+    public String name;
+    public ASTNode initializer;
 
     VariableDeclaration(String type, String name, ASTNode initializer) {
         this.type = type;
