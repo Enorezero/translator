@@ -127,6 +127,9 @@ public class Lexer {
 
       //check keywords
       var keyword = TokenType.fromValue(tmpToken.toString());
+      if (tmpToken.toString().equals("b")){
+        System.out.println();
+      }
       if (keyword != null) {
         if (keyword == TokenType.CLASS || keyword == TokenType.INTERFACE || keyword == TokenType.VOID) {
           isDataType = false;
