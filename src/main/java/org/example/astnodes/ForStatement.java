@@ -6,15 +6,11 @@ import java.util.List;
 
 // Represents a for loop
 public class ForStatement extends ASTNode {
-    public VariableDeclaration initializer;
-    public ASTNode condition;
-    public ASTNode update;
+    public Condition condition;
     public List<ASTNode> body;
 
-    ForStatement(VariableDeclaration initializer, ASTNode condition, ASTNode update, List<ASTNode> body) {
-        this.initializer = initializer;
+    public ForStatement(Condition condition, List<ASTNode> body) {
         this.condition = condition;
-        this.update = update;
         this.body = body;
     }
 }

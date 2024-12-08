@@ -13,8 +13,8 @@ public enum TokenType {
     IDENTIFIER("identifier"),
     DATA_TYPE("dataType"),
     FUNCTION("FUNCTION"),
-    IF("IF"),
-    ELSE("ELSE"),
+    IF("if"),
+    ELSE("else"),
     LOOP("LOOP"),
     EQUALS_EQUALS("=="),
     NOT_EQUALS("!="),
@@ -52,6 +52,7 @@ public enum TokenType {
     PROTECTED("protected"),
 
     // Служебные слова Java
+    EXTENDS("extends"),
     STATIC("static"),
     FINAL("final"),
     ABSTRACT("abstract"),

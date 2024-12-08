@@ -4,11 +4,11 @@ import org.example.ASTNode;
 
 // Represents a binary operation (e.g., addition, subtraction)
 public class BinaryOp extends ASTNode {
-    public ASTNode left;
+    public String left;
     public String operator;
-    public ASTNode right;
+    public String right;
 
-    BinaryOp(ASTNode left, String operator, ASTNode right) {
+    public BinaryOp(String left, String operator, String right) {
         this.left = left;
         this.operator = operator;
         this.right = right;
