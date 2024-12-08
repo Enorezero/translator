@@ -120,16 +120,13 @@ public class Lexer {
 
       //keywords and identifiers
       StringBuilder tmpToken = new StringBuilder();
-      while (currentChar != ' ' && currentChar != '.' && currentChar != '(' && currentChar != ')') {
+      while (currentChar != ' ' && currentChar != '.' && currentChar != '(' && currentChar != ')' && currentChar != ';') {
         tmpToken.append(currentChar);
         advance();
       }
 
       //check keywords
       var keyword = TokenType.fromValue(tmpToken.toString());
-      if (tmpToken.toString().equals("b")){
-        System.out.println();
-      }
       if (keyword != null) {
         if (keyword == TokenType.CLASS || keyword == TokenType.INTERFACE || keyword == TokenType.VOID) {
           isDataType = false;
