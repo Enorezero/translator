@@ -4,9 +4,9 @@ import org.example.ASTNode;
 
 // Represents a return statement
 public class ReturnStatement extends ASTNode {
-    public ASTNode expression;
+    public String expression;
 
-    ReturnStatement(ASTNode expression) {
+    public ReturnStatement(String expression) {
         this.expression = expression;
     }
 }

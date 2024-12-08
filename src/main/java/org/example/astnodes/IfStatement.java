@@ -10,9 +10,14 @@ public class IfStatement extends ASTNode {
     public List<ASTNode> trueBody;
     public List<ASTNode> falseBody;
 
-    IfStatement(ASTNode condition, List<ASTNode> trueBody, List<ASTNode> falseBody) {
+    public IfStatement(ASTNode condition, List<ASTNode> trueBody, List<ASTNode> falseBody) {
         this.condition = condition;
         this.trueBody = trueBody;
         this.falseBody = falseBody;
+    }
+
+    public IfStatement(ASTNode condition, List<ASTNode> trueBody) {
+        this.condition = condition;
+        this.trueBody = trueBody;
     }
 }

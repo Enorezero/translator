@@ -1,4 +1,4 @@
-package org.example;
+package org.example.lexer;
 
 import org.example.model.Token;
 import org.example.model.TokenType;

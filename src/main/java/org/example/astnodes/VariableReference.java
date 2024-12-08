@@ -6,7 +6,11 @@ import org.example.ASTNode;
 public class VariableReference extends ASTNode {
     public String name;
 
-    VariableReference(String name) {
+    public VariableReference(String name) {
         this.name = name;
+    }
+
+    public VariableReference() {
+
     }
 }

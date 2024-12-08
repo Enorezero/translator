@@ -7,9 +7,9 @@ import java.util.List;
 // Represents a method call
 public class MethodCall extends ASTNode {
     public String methodName;
-    public List<ASTNode> arguments;
+    public List<VariableReference> arguments;
 
-    MethodCall(String methodName, List<ASTNode> arguments) {
+    public MethodCall(String methodName, List<VariableReference> arguments) {
         this.methodName = methodName;
         this.arguments = arguments;
     }

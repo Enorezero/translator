@@ -9,7 +9,7 @@ public class WhileStatement extends ASTNode {
     public ASTNode condition;
     public List<ASTNode> body;
 
-    WhileStatement(ASTNode condition, List<ASTNode> body) {
+    public WhileStatement(ASTNode condition, List<ASTNode> body) {
         this.condition = condition;
         this.body = body;
     }

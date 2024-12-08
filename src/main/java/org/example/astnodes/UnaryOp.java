@@ -5,9 +5,9 @@ import org.example.ASTNode;
 // Represents a unary operation (e.g., negation)
 public class UnaryOp extends ASTNode {
     public String operator;
-    public ASTNode operand;
+    public String operand;
 
-    UnaryOp(String operator, ASTNode operand) {
+    public UnaryOp(String operator, String operand) {
         this.operator = operator;
         this.operand = operand;
     }
