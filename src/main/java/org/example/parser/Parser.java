@@ -225,7 +225,7 @@ public class Parser {
             if(staticModificator != null) definition.setStaticModificator(staticModificator);
             if(finalModificator != null) definition.setFinalModificator(finalModificator);
 
-            definition.setName(datatype);
+            definition.setType(datatype);
             definition.setName(identifier);
             definition.setParams(params);
             definition.setBody(body);

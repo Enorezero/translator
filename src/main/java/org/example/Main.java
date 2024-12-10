@@ -1,44 +1,60 @@
 package org.example;
 
+import org.example.generator.KotlinCodeGenerator;
 import org.example.lexer.Lexer;
-import org.example.model.Token;
-import org.example.model.TokenType;
 import org.example.parser.Parser;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        String code = "public class HelloWorld { " +
-                "    public static void main(String[] args) { " +
-                "        int a = 10; " +
-                "        int b = 3.14; " +
-                "        if (a < b) {a + b; } " +
-                "    } " +
-                "} ";
+  public static void main(String[] args) {
+    String code1 = "public class HelloWorld { " +
+            "    public static void main(String[] args) { " +
+            "        int a = 10; " +
+            "        float b = 3.14f; " +
+            "        if (a < b) {a + b; } " +
+            "    } " +
+            "} ";
 
-        //String code = "int a = 5; int b = 4; if (a < b) { a+=b;}";
+    String code2 = "public class Main {\n" +
+            "\n" +
+            "  private String generateString() {\n" +
+            "    String res = \"\";\n" +
+            "    for (int i = 0; i < 99; i = i + 1) {\n" +
+            "      res = i;\n" +
+            "    }\n" +
+            "    return res;\n" +
+            "  }\n" +
+            "  \n" +
+            "  public static void main(String[] args) {\n" +
+            "    generateString();\n" +
+            "  }\n" +
+            "}";
 
+    String code3 = "public class Main {\n" +
+            "\n" +
+            "  public static void main(String[] args) {\n" +
+            "    int a = 10;\n" +
+            "    while (a != 0) {\n" +
+            "      a = a - 1;\n" +
+            "    }\n" +
+            "  }\n" +
+            "}";
 
+    KotlinCodeGenerator generator = new KotlinCodeGenerator();
 
-        Lexer lexer = new Lexer(code);
+    Lexer lexer = new Lexer(code2);
 
-        //System.out.println(lexer.tokenize());
+    Parser parser = new Parser(lexer.tokenize());
 
-        Parser parser = new Parser(lexer.tokenize());
-//
-//        //System.out.println(lexer.tokenize());
-//
-        List<ASTNode> nodes = parser.parse();
+    List<ASTNode> nodes = parser.parse();
 
-        for (ASTNode node : nodes) {
-            System.out.println(node.toString());
-        }
-
-
-
-        //System.out.println(lexer.tokenize());
+    StringBuilder codeBuilder = new StringBuilder();
+    for (ASTNode node : nodes) {
+      codeBuilder.append(generator.generateCode(node)).append('\n');
     }
+    System.out.println(codeBuilder);
+
+
+  }
 }
