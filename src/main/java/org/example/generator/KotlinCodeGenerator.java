@@ -44,9 +44,15 @@ public class KotlinCodeGenerator {
       return generateVariableReference((VariableReference) node);
     } else if (node instanceof Condition) {
       return ((Condition) node).condition;
+    } else if (node instanceof TripleOp) {
+      return generateTripleOp((TripleOp) node);
     }
 
     return "";
+  }
+
+  private String generateTripleOp(TripleOp node) {
+    return node.left + " " + node.interMediateOperator + " " + node.firstOperand + " " + node.operator + " " + node.secondOperand + ";";
   }
 
   private String generateProgram(Program program) {

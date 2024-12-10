@@ -101,6 +101,31 @@ public class Parser {
             } else if (currentToken.getType() == TokenType.IDENTIFIER) {
                 String secId = currentToken.getValue();
                 eat(currentToken.getType());
+                if (currentToken.getType() == TokenType.EQUALS_EQUALS ||
+                        currentToken.getType() == TokenType.NOT_EQUALS ||
+                        currentToken.getType() == TokenType.LESS_THAN_OR_EQUAL_TO ||
+                        currentToken.getType() == TokenType.GREATER_THAN_OR_EQUAL_TO ||
+                        currentToken.getType() == TokenType.EQUALS ||
+                        currentToken.getType() == TokenType.LESS_THAN ||
+                        currentToken.getType() == TokenType.GREATER_THAN ||
+                        currentToken.getType() == TokenType.MODULO ||
+                        currentToken.getType() == TokenType.BITWISE_AND ||
+                        currentToken.getType() == TokenType.BITWISE_OR ||
+                        currentToken.getType() == TokenType.BITWISE_XOR ||
+                        currentToken.getType() == TokenType.BITWISE_NOT ||
+                        currentToken.getType() == TokenType.PLUS ||
+                        currentToken.getType() == TokenType.MINUS ||
+                        currentToken.getType() == TokenType.TIMES ||
+                        currentToken.getType() == TokenType.DIVIDE) {
+                    String interOps = currentToken.getValue();
+                    eat(currentToken.getType());
+                    if(currentToken.getType() == TokenType.IDENTIFIER) {
+                        String thId = currentToken.getValue();
+                        eat(currentToken.getType());
+                        //System.out.println("in triple ops");
+                        return new TripleOp(id, operation, secId, interOps, thId);
+                    }
+                }
                 return new BinaryOp(id, operation, secId);
             }
         } else if (currentToken.getType() == TokenType.LPAREN) {
@@ -229,6 +254,7 @@ public class Parser {
             definition.setName(identifier);
             definition.setParams(params);
             definition.setBody(body);
+            eat(TokenType.RBRACE);
 
 
             return definition;

@@ -18,10 +18,11 @@ public class Main {
 
     String code2 = "public class Main {\n" +
             "\n" +
-            "  private String generateString() {\n" +
+            "  private static String generateString() {\n" +
             "    String res = \"\";\n" +
+            "    res = res + res;\n" +
             "    for (int i = 0; i < 99; i = i + 1) {\n" +
-            "      res = i;\n" +
+            "      res = res + i;\n" +
             "    }\n" +
             "    return res;\n" +
             "  }\n" +
