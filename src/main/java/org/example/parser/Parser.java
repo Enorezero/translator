@@ -387,7 +387,7 @@ public class Parser {
         if (currentToken.getType() == expectedType) {
             advance();
         } else {
-            throw new RuntimeException("Expected " + expectedType + " but got " + currentToken.getValue());
+            throw new RuntimeException("Ожидалось " + expectedType.getValue()+ " , но получено " + currentToken.getValue());
         }
     }
 }
