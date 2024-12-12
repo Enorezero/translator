@@ -97,6 +97,7 @@ public class KotlinCodeGenerator {
       if (!staticMethods.isEmpty()) {
         builder.append("companion object {\n");
         for (MethodDef methodDef : staticMethods) {
+          builder.append("@JvmStatic\n");
           builder.append(generateMethod(methodDef)).append("\n");
         }
         builder.append("}\n");
